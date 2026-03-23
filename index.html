@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senthilkumar R — Faculty Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0f1a;
+  --s1: #111827;
+  --s2: #1a2235;
+  --s3: #1f2d45;
+  --b0: rgba(255,255,255,0.05);
+  --b1: rgba(255,255,255,0.09);
+  --b2: rgba(255,255,255,0.14);
+  --a:  #4fc3f7;
+  --a2: #9b87f5;
+  --a3: #4ade80;
+  --go: #fbbf24;
+  --ro: #f87171;
+  --tx: #e2e8f0;
+  --t2: #94a3b8;
+  --t3: #64748b;
+  --t4: #3d4f66;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--tx); font-family: 'DM Sans', sans-serif; font-weight: 400; overflow-x: hidden; line-height: 1.7; }
+
+/* ── Ambient ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at -5% -10%, rgba(79,195,247,.07) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 110% 110%, rgba(155,135,245,.06) 0%, transparent 55%);
+}
+
+/* ── Nav ── */
+#topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+  background: rgba(11,15,26,.93);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--b1);
+}
+.nav-id { font-family: 'DM Mono', monospace; font-size: .7rem; color: var(--a); letter-spacing: .14em; text-transform: uppercase; }
+.nav-pills { display: flex; gap: .15rem; list-style: none; }
+.nav-pills a { display: block; padding: .3rem .75rem; border-radius: .3rem; font-size: .76rem; color: var(--t2); text-decoration: none; transition: color .18s, background .18s; }
+.nav-pills a:hover { color: var(--tx); background: var(--b1); }
+
+/* ── Sidebar TOC ── */
+.toc-rail {
+  position: fixed; right: 1.25rem; top: 50%; transform: translateY(-50%);
+  z-index: 200; display: flex; flex-direction: column; gap: .55rem;
+}
+.toc-pip {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--t4); cursor: pointer; transition: all .2s; position: relative;
+}
+.toc-pip.on, .toc-pip:hover { background: var(--a); box-shadow: 0 0 7px var(--a); }
+.toc-pip::before {
+  content: attr(data-l); position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+  font-size: .66rem; color: var(--t2); white-space: nowrap; opacity: 0; pointer-events: none;
+  background: var(--s2); padding: .18rem .45rem; border-radius: .2rem; border: 1px solid var(--b1);
+  transition: opacity .18s;
+}
+.toc-pip:hover::before { opacity: 1; }
+
+/* ── Layout ── */
+main { position: relative; z-index: 1; }
+section { padding: 5rem 0; border-bottom: 1px solid var(--b0); }
+section:last-child { border-bottom: none; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 2.5rem; }
+
+/* ── Section title ── */
+.sh { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.25rem; }
+.sh-n { font-family: 'DM Mono', monospace; font-size: .68rem; color: var(--a); letter-spacing: .14em; flex-shrink: 0; }
+.sh-t { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; color: var(--tx); white-space: nowrap; }
+.sh-line { flex: 1; height: 1px; background: var(--b1); }
+.sh-count { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--t3); white-space: nowrap; }
+
+/* ── Sub-heading strip ── */
+.sub-strip {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'DM Mono', monospace; font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--t3); padding: .45rem 0 .55rem;
+  border-bottom: 1px solid var(--b0); margin-bottom: .75rem; margin-top: 1.5rem;
+}
+.sub-strip span { color: var(--t2); font-size: .68rem; }
+
+/* ── Fade-up ── */
+.fu { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+.fu.vis { opacity: 1; transform: none; }
+
+/* ══════════════════════ HERO ══════════════════════ */
+#hero { min-height: 100vh; display: flex; align-items: center; padding-top: 56px; }
+.hero-grid { display: grid; grid-template-columns: 1fr 320px; gap: 4rem; align-items: center; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: 'DM Mono', monospace; font-size: .68rem; color: var(--a);
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: .3rem .85rem; border: 1px solid rgba(79,195,247,.22); border-radius: 2rem;
+  background: rgba(79,195,247,.05); margin-bottom: 1.1rem;
+  animation: fadeUp .7s both;
+}
+.hero-badge i { width: 5px; height: 5px; background: var(--a); border-radius: 50%; animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+h1.name {
+  font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 900; line-height: 1; letter-spacing: -.02em;
+  margin-bottom: .25rem; animation: fadeUp .7s .08s both;
+}
+h1.name em {
+  background: linear-gradient(130deg, var(--a), var(--a2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; font-style: normal; display: block;
+}
+.hero-role { font-size: .98rem; color: var(--t2); margin-bottom: 1.4rem; line-height: 1.6; animation: fadeUp .7s .16s both; }
+.hero-role strong { color: var(--tx); font-weight: 600; }
+.hero-para { font-size: .91rem; color: var(--t2); max-width: 540px; line-height: 1.9; margin-bottom: 2rem; animation: fadeUp .7s .24s both; }
+.kpis { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; animation: fadeUp .7s .3s both; }
+.kpi-n { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 900; color: var(--tx); line-height: 1; }
+.kpi-n sup { font-size: .9rem; color: var(--a); }
+.kpi-l { font-family: 'DM Mono', monospace; font-size: .6rem; color: var(--t2); letter-spacing: .1em; text-transform: uppercase; margin-top: .15rem; }
+.hero-btns { display: flex; gap: .7rem; flex-wrap: wrap; animation: fadeUp .7s .36s both; }
+.btn { padding: .6rem 1.4rem; border-radius: .35rem; font-size: .84rem; font-weight: 500; text-decoration: none; transition: all .2s; cursor: pointer; }
+.btn-fill { background: var(--a); color: #0b0f1a; border: none; }
+.btn-fill:hover { background: #81d4fa; transform: translateY(-1px); }
+.btn-out { background: transparent; color: var(--tx); border: 1px solid var(--b2); }
+.btn-out:hover { border-color: var(--a); color: var(--a); }
+
+/* Hero card */
+.hero-card { background: var(--s1); border: 1px solid var(--b2); border-radius: .9rem; padding: 1.75rem; animation: fadeUp .7s .44s both; }
+.hc-row { display: flex; justify-content: space-between; align-items: flex-start; padding: .72rem 0; border-bottom: 1px solid var(--b0); gap: .5rem; }
+.hc-row:last-child { border-bottom: none; }
+.hc-k { font-family: 'DM Mono', monospace; font-size: .62rem; color: var(--t3); letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; width: 95px; }
+.hc-v { font-size: .8rem; color: var(--tx); text-align: right; line-height: 1.5; }
+.pill { display: inline-block; padding: .12rem .5rem; border-radius: 1rem; font-size: .68rem; font-weight: 500; background: rgba(74,222,128,.1); color: var(--a3); border: 1px solid rgba(74,222,128,.22); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+
+/* ══════════════════════ EDUCATION ══════════════════════ */
+.edu-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.1rem; }
+.edu-card { background: var(--s1); border: 1px solid var(--b1); border-radius: .7rem; padding: 1.6rem; position: relative; overflow: hidden; transition: border-color .25s, transform .25s; }
+.edu-card:hover { border-color: rgba(79,195,247,.3); transform: translateY(-3px); }
+.edu-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: .7rem .7rem 0 0; }
+.edu-card.ug::after { background: linear-gradient(90deg, var(--a), #81d4fa); }
+.edu-card.pg::after { background: linear-gradient(90deg, var(--a2), #c084fc); }
+.edu-card.phd::after { background: linear-gradient(90deg, var(--go), #fb923c); }
+.edu-yr { font-family: 'DM Mono', monospace; font-size: .66rem; color: var(--t3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .7rem; }
+.edu-deg { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--tx); margin-bottom: .35rem; }
+.edu-uni { font-size: .84rem; color: var(--t2); margin-bottom: .15rem; }
+.edu-col { font-size: .78rem; color: var(--t3); }
+
+/* ══════════════════════ TIMELINE ══════════════════════ */
+.tline { position: relative; padding-left: 1.4rem; }
+.tline::before { content: ''; position: absolute; left: 0; top: .5rem; bottom: .5rem; width: 1px; background: linear-gradient(to bottom, var(--a), var(--a2), transparent); }
+.tl-item { position: relative; background: var(--s1); border: 1px solid var(--b1); border-radius: .65rem; padding: 1.4rem 1.6rem; margin-bottom: .75rem; transition: border-color .2s; }
+.tl-item:hover { border-color: rgba(79,195,247,.25); }
+.tl-item::before { content: ''; position: absolute; left: -1.75rem; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; background: var(--a); border-radius: 50%; box-shadow: 0 0 7px rgba(79,195,247,.6); }
+.tl-date { font-family: 'DM Mono', monospace; font-size: .66rem; color: var(--a); letter-spacing: .07em; margin-bottom: .25rem; }
+.tl-role { font-size: .97rem; font-weight: 600; color: var(--tx); margin-bottom: .1rem; }
+.tl-org { font-size: .83rem; color: var(--t2); }
+.tl-tag { display: inline-block; margin-top: .45rem; padding: .12rem .5rem; border-radius: 1rem; font-size: .65rem; font-weight: 500; background: rgba(79,195,247,.08); color: var(--a); border: 1px solid rgba(79,195,247,.18); }
+
+/* ══════════════════════ PUBLICATIONS ══════════════════════ */
+.pub-kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: .9rem; }
+.pkpi { background: var(--s1); border: 1px solid var(--b1); border-radius: .6rem; padding: 1.1rem; text-align: center; }
+.pkpi-n { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--tx); }
+.pkpi-l { font-size: .66rem; color: var(--t2); text-transform: uppercase; letter-spacing: .08em; margin-top: .15rem; }
+.pub-list { display: flex; flex-direction: column; gap: .6rem; }
+.pub-row { background: var(--s1); border: 1px solid var(--b1); border-radius: .55rem; padding: 1.1rem 1.35rem; display: flex; gap: 1rem; align-items: flex-start; transition: border-color .2s, transform .2s; }
+.pub-row:hover { border-color: rgba(79,195,247,.22); transform: translateX(3px); }
+.qb { flex-shrink: 0; padding: .2rem .5rem; border-radius: .25rem; font-family: 'DM Mono', monospace; font-size: .62rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; margin-top: .1rem; }
+.qb.q1 { background: rgba(251,191,36,.1); color: var(--go); border: 1px solid rgba(251,191,36,.22); }
+.qb.q2 { background: rgba(79,195,247,.1); color: var(--a); border: 1px solid rgba(79,195,247,.22); }
+.qb.q3 { background: rgba(155,135,245,.1); color: var(--a2); border: 1px solid rgba(155,135,245,.22); }
+.qb.cf { background: rgba(74,222,128,.08); color: var(--a3); border: 1px solid rgba(74,222,128,.18); }
+.qb.ut { background: rgba(148,163,184,.08); color: var(--t2); border: 1px solid rgba(148,163,184,.14); }
+.pub-body { flex: 1; min-width: 0; }
+.pub-title { font-size: .87rem; font-weight: 500; color: var(--tx); line-height: 1.45; margin-bottom: .3rem; }
+.pub-meta { font-size: .75rem; color: var(--t3); display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; }
+.pub-cit { font-family: 'DM Mono', monospace; font-size: .68rem; color: var(--a); }
+
+/* ══════════════════════ PATENT ══════════════════════ */
+.patent-card { background: linear-gradient(130deg, var(--s1), rgba(79,195,247,.04)); border: 1px solid rgba(79,195,247,.2); border-radius: .75rem; padding: 2rem; display: flex; align-items: center; gap: 2.5rem; }
+.pat-id { font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 900; color: var(--a); line-height: 1; flex-shrink: 0; }
+.pat-lbl { font-family: 'DM Mono', monospace; font-size: .62rem; color: var(--t3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .3rem; }
+.pat-title { font-size: .93rem; font-weight: 600; color: var(--tx); line-height: 1.5; margin-bottom: .35rem; }
+.pat-meta { font-size: .8rem; color: var(--t2); }
+
+/* ══════════════════════ BOOKS ══════════════════════ */
+.books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.book-card { background: var(--s1); border: 1px solid var(--b1); border-radius: .65rem; padding: 1.4rem 1.4rem 1.4rem 1.65rem; position: relative; overflow: hidden; transition: border-color .25s, transform .25s; }
+.book-card:hover { border-color: rgba(155,135,245,.32); transform: translateY(-3px); }
+.book-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(to bottom, var(--a2), var(--a)); border-radius: .65rem 0 0 .65rem; }
+.bk-yr { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--t3); margin-bottom: .55rem; letter-spacing: .07em; }
+.bk-title { font-size: .87rem; font-weight: 500; color: var(--tx); line-height: 1.45; margin-bottom: .3rem; }
+.bk-pub { font-size: .74rem; color: var(--t3); }
+.chap-list { display: flex; flex-direction: column; gap: .55rem; }
+.chap-row { background: var(--s1); border: 1px solid var(--b1); border-radius: .45rem; padding: .9rem 1.15rem; transition: border-color .2s; }
+.chap-row:hover { border-color: rgba(155,135,245,.22); }
+.chap-t { font-size: .86rem; font-weight: 500; color: var(--tx); margin-bottom: .18rem; line-height: 1.4; }
+.chap-p { font-size: .75rem; color: var(--t3); }
+
+/* ══════════════════════ CERTIFICATIONS ══════════════════════ */
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: .55rem; }
+.cert-row { background: var(--s1); border: 1px solid var(--b1); border-radius: .45rem; padding: .8rem 1rem; display: flex; gap: .65rem; align-items: flex-start; transition: border-color .2s; }
+.cert-row:hover { border-color: rgba(79,195,247,.22); }
+.cert-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: .42rem; }
+.cd-blue { background: var(--a); }
+.cd-gold { background: var(--go); }
+.cd-purple { background: var(--a2); }
+.cert-nm { font-size: .83rem; font-weight: 500; color: var(--tx); margin-bottom: .12rem; line-height: 1.4; }
+.cert-org { font-size: .73rem; color: var(--t3); }
+
+/* ══════════════════════ SKILLS ══════════════════════ */
+.skill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.1rem; }
+.skill-group { background: var(--s1); border: 1px solid var(--b1); border-radius: .65rem; padding: 1.35rem; }
+.sg-title { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--a); letter-spacing: .12em; text-transform: uppercase; margin-bottom: .8rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+.tag { padding: .22rem .65rem; background: var(--s2); border: 1px solid var(--b1); border-radius: .22rem; font-size: .76rem; color: var(--t2); transition: all .18s; cursor: default; }
+.tag:hover { border-color: var(--a); color: var(--a); background: rgba(79,195,247,.05); }
+
+/* ══════════════════════ EVENTS ══════════════════════ */
+.ev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: .65rem; }
+.ev-card { background: var(--s1); border: 1px solid var(--b1); border-radius: .45rem; padding: .9rem 1.1rem; transition: border-color .2s; }
+.ev-card:hover { border-color: rgba(79,195,247,.2); }
+.ev-cat { font-family: 'DM Mono', monospace; font-size: .6rem; color: var(--t3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .3rem; }
+.ev-name { font-size: .85rem; font-weight: 500; color: var(--tx); margin-bottom: .18rem; line-height: 1.4; }
+.ev-org { font-size: .74rem; color: var(--t3); }
+.ev-date { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--a2); margin-top: .28rem; }
+.ev-amt { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--a3); }
+
+/* ══════════════════════ DELIVERABLES ══════════════════════ */
+.deliv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: .55rem; }
+.deliv-card { background: var(--s1); border: 1px solid var(--b1); border-radius: .45rem; padding: .8rem 1rem; display: flex; gap: .6rem; align-items: flex-start; transition: border-color .2s; }
+.deliv-card:hover { border-color: rgba(155,135,245,.2); }
+.deliv-dot { width: 6px; height: 6px; background: var(--a2); border-radius: 50%; flex-shrink: 0; margin-top: .42rem; }
+.deliv-nm { font-size: .83rem; font-weight: 500; color: var(--tx); margin-bottom: .12rem; line-height: 1.4; }
+.deliv-org { font-size: .73rem; color: var(--t3); }
+.deliv-dt { font-family: 'DM Mono', monospace; font-size: .63rem; color: var(--a2); margin-top: .12rem; }
+
+/* ══════════════════════ COMPETITIONS ══════════════════════ */
+.comp-list { display: flex; flex-direction: column; gap: .65rem; }
+.comp-card { background: var(--s1); border: 1px solid var(--b1); border-radius: .55rem; padding: 1.1rem 1.35rem; display: flex; align-items: flex-start; gap: 1rem; transition: border-color .2s; }
+.comp-card:hover { border-color: rgba(251,191,36,.22); }
+.comp-badge { flex-shrink: 0; padding: .2rem .55rem; border-radius: .25rem; font-family: 'DM Mono', monospace; font-size: .62rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; text-align: center; min-width: 85px; }
+.cb-gold { background: rgba(251,191,36,.1); color: var(--go); border: 1px solid rgba(251,191,36,.25); }
+.cb-silver { background: rgba(148,163,184,.08); color: var(--t2); border: 1px solid rgba(148,163,184,.15); }
+.cb-green { background: rgba(74,222,128,.07); color: var(--a3); border: 1px solid rgba(74,222,128,.15); }
+.comp-name { font-size: .88rem; font-weight: 500; color: var(--tx); margin-bottom: .18rem; }
+.comp-org { font-size: .76rem; color: var(--t3); }
+
+/* ══════════════════════ CORPORATE TRAINING ══════════════════════ */
+.train-list { display: flex; flex-direction: column; gap: .6rem; }
+.train-card { background: var(--s1); border: 1px solid var(--b1); border-radius: .5rem; padding: .95rem 1.2rem; display: grid; grid-template-columns: 1fr auto; gap: .75rem; align-items: start; transition: border-color .2s; }
+.train-card:hover { border-color: rgba(79,195,247,.2); }
+.tr-name { font-size: .88rem; font-weight: 500; color: var(--tx); margin-bottom: .18rem; line-height: 1.4; }
+.tr-topic { font-size: .78rem; color: var(--t2); margin-bottom: .12rem; }
+.tr-org { font-size: .73rem; color: var(--t3); }
+.tr-date { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--a2); text-align: right; white-space: nowrap; }
+
+/* ══════════════════════ PROJECTS ══════════════════════ */
+.proj-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.1rem; }
+.proj-card { background: var(--s1); border: 1px solid var(--b1); border-radius: .65rem; padding: 1.4rem; transition: border-color .25s, transform .2s; }
+.proj-card:hover { border-color: rgba(74,222,128,.28); transform: translateY(-2px); }
+.proj-yr { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--a3); letter-spacing: .07em; margin-bottom: .45rem; }
+.proj-title { font-size: .88rem; font-weight: 500; color: var(--tx); margin-bottom: .35rem; line-height: 1.4; }
+.proj-fund { font-size: .76rem; color: var(--t2); }
+
+/* ══════════════════════ GATE ══════════════════════ */
+.gate-card { background: linear-gradient(130deg, var(--s1), rgba(251,191,36,.03)); border: 1px solid rgba(251,191,36,.16); border-radius: .75rem; padding: 1.85rem; display: flex; align-items: center; gap: 2rem; }
+.gate-n { font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 900; color: var(--go); line-height: 1; flex-shrink: 0; }
+.gate-lbl { font-family: 'DM Mono', monospace; font-size: .62rem; color: var(--t3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .25rem; }
+.gate-title { font-size: .98rem; font-weight: 600; color: var(--tx); margin-bottom: .2rem; }
+.gate-sub { font-size: .82rem; color: var(--t2); }
+
+/* ══════════════════════ MEMBERSHIP ══════════════════════ */
+.mem-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.1rem; }
+.mem-card { background: var(--s1); border: 1px solid var(--b1); border-radius: .65rem; padding: 1.6rem; display: flex; align-items: center; gap: 1.25rem; transition: border-color .2s; }
+.mem-card:hover { border-color: rgba(79,195,247,.22); }
+.mem-ico { width: 46px; height: 46px; flex-shrink: 0; background: var(--s2); border: 1px solid var(--b1); border-radius: .5rem; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; }
+.mem-org { font-size: .93rem; font-weight: 600; color: var(--tx); margin-bottom: .2rem; }
+.mem-type { font-size: .79rem; color: var(--t2); }
+.mem-since { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--a); margin-top: .25rem; }
+
+/* ══════════════════════ AWARDS ══════════════════════ */
+.awards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.1rem; }
+.award-card { background: var(--s1); border: 1px solid var(--b1); border-radius: .65rem; padding: 1.6rem; transition: border-color .25s, transform .25s; }
+.award-card:hover { border-color: rgba(251,191,36,.3); transform: translateY(-3px); }
+.aw-ico { font-size: 1.5rem; margin-bottom: .7rem; }
+.aw-title { font-size: .88rem; font-weight: 500; color: var(--tx); line-height: 1.45; margin-bottom: .35rem; }
+.aw-org { font-size: .77rem; color: var(--t2); }
+.aw-yr { display: inline-block; margin-top: .6rem; font-family: 'DM Mono', monospace; font-size: .66rem; color: var(--go); padding: .12rem .5rem; background: rgba(251,191,36,.07); border-radius: .22rem; border: 1px solid rgba(251,191,36,.18); }
+
+/* ══════════════════════ CONTACT ══════════════════════ */
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.1rem; }
+.ct-card { background: var(--s1); border: 1px solid var(--b1); border-radius: .65rem; padding: 1.35rem; display: flex; align-items: center; gap: .85rem; transition: border-color .2s; }
+.ct-card:hover { border-color: rgba(79,195,247,.22); }
+.ct-ico { width: 38px; height: 38px; flex-shrink: 0; background: var(--s2); border: 1px solid var(--b1); border-radius: .4rem; display: flex; align-items: center; justify-content: center; font-size: .95rem; }
+.ct-lbl { font-family: 'DM Mono', monospace; font-size: .59rem; color: var(--t3); text-transform: uppercase; letter-spacing: .1em; }
+.ct-val { font-size: .84rem; color: var(--tx); font-weight: 500; margin-top: .08rem; }
+
+/* Footer */
+footer { border-top: 1px solid var(--b0); padding: 2rem; text-align: center; color: var(--t3); font-size: .77rem; }
+footer strong { color: var(--a); }
+
+/* Responsive */
+@media(max-width:900px){
+  .toc-rail,.nav-pills{display:none}
+  #topnav{padding:0 1.25rem}
+  .wrap{padding:0 1.25rem}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .edu-row,.proj-row,.mem-row{grid-template-columns:1fr}
+}
+@media(max-width:580px){ .pub-kpis{grid-template-columns:repeat(2,1fr)} }
+</style>
+</head>
+<body>
+
+<nav id="topnav">
+  <span class="nav-id">Senthilkumar R · GCE Erode · ID: 27082021269</span>
+  <ul class="nav-pills">
+    <li><a href="#hero">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#books">Books</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#events-org">Events</a></li>
+    <li><a href="#deliverables">Deliverables</a></li>
+    <li><a href="#awards">Awards</a></li>
+  </ul>
+</nav>
+
+<div class="toc-rail">
+  <div class="toc-pip" data-l="About"           data-t="hero"></div>
+  <div class="toc-pip" data-l="Education"        data-t="education"></div>
+  <div class="toc-pip" data-l="Experience"       data-t="experience"></div>
+  <div class="toc-pip" data-l="Publications"     data-t="publications"></div>
+  <div class="toc-pip" data-l="Patent"           data-t="patent"></div>
+  <div class="toc-pip" data-l="Books"            data-t="books"></div>
+  <div class="toc-pip" data-l="Certifications"   data-t="certifications"></div>
+  <div class="toc-pip" data-l="Skills"           data-t="skills"></div>
+  <div class="toc-pip" data-l="Events Organised" data-t="events-org"></div>
+  <div class="toc-pip" data-l="Events Attended"  data-t="events-att"></div>
+  <div class="toc-pip" data-l="Deliverables"     data-t="deliverables"></div>
+  <div class="toc-pip" data-l="Competitions"     data-t="competitions"></div>
+  <div class="toc-pip" data-l="Corp. Training"   data-t="corp-training"></div>
+  <div class="toc-pip" data-l="Projects"         data-t="projects"></div>
+  <div class="toc-pip" data-l="GATE / Membership" data-t="gate"></div>
+  <div class="toc-pip" data-l="Awards"           data-t="awards"></div>
+  <div class="toc-pip" data-l="Contact"          data-t="contact"></div>
+</div>
+
+<main>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section id="hero">
+<div class="wrap">
+<div class="hero-grid">
+  <div>
+    <div class="hero-badge"><i></i>Assistant Professor · ECE Dept</div>
+    <h1 class="name">Senthilkumar<em>R, PhD</em></h1>
+    <p class="hero-role"><strong>Government College of Engineering Erode</strong> (Formerly IRTT)<br>Electronics &amp; Communication Engineering</p>
+    <p class="hero-para">24+ years of teaching experience across three premier engineering institutions in Tamil Nadu. PhD (2019) from Anna University in Image Processing. Specialises in Signal &amp; Image Processing, Machine Learning, Deep Learning, IoT, VLSI and Embedded Systems. Holds one granted patent, authored six textbooks, published 20 research works with 61 total citations, and delivered 26 outreach lectures across India.</p>
+    <div class="kpis">
+      <div><div class="kpi-n">24<sup>+</sup></div><div class="kpi-l">Yrs Teaching</div></div>
+      <div><div class="kpi-n">20</div><div class="kpi-l">Publications</div></div>
+      <div><div class="kpi-n">61</div><div class="kpi-l">Citations</div></div>
+      <div><div class="kpi-n">6</div><div class="kpi-l">Books</div></div>
+      <div><div class="kpi-n">26</div><div class="kpi-l">Deliverables</div></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#publications" class="btn btn-fill">View Research ↓</a>
+      <a href="#contact" class="btn btn-out">Contact</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="hc-row"><div class="hc-k">Status</div><div class="hc-v"><span class="pill">Active Faculty</span></div></div>
+    <div class="hc-row"><div class="hc-k">Employee ID</div><div class="hc-v">27082021269</div></div>
+    <div class="hc-row"><div class="hc-k">Department</div><div class="hc-v">Electronics &amp; Comm. Engg</div></div>
+    <div class="hc-row"><div class="hc-k">Research</div><div class="hc-v">Image Processing · Face Recognition</div></div>
+    <div class="hc-row"><div class="hc-k">GATE Score</div><div class="hc-v">924 · 2001</div></div>
+    <div class="hc-row"><div class="hc-k">Memberships</div><div class="hc-v">IEI (Associate) · ISTE (Life)</div></div>
+    <div class="hc-row"><div class="hc-k">Total Exp</div><div class="hc-v">24.8 yrs · Current 19.9 yrs</div></div>
+    <div class="hc-row"><div class="hc-k">Languages</div><div class="hc-v">Hindi · English · Tamil</div></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ════════════════════ EDUCATION ════════════════════ -->
+<section id="education">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">01</span><h2 class="sh-t">Education</h2><div class="sh-line"></div></div>
+  <div class="edu-row fu">
+    <div class="edu-card ug">
+      <div class="edu-yr">1999 · Undergraduate</div>
+      <div class="edu-deg">B.E.</div>
+      <div class="edu-uni">Madurai Kamarajar University</div>
+      <div class="edu-col">PSNA College of Engineering &amp; Technology, Dindigul</div>
+      <div style="margin-top:.7rem"><span class="pill">First Class &amp; Distinction</span></div>
+    </div>
+    <div class="edu-card pg">
+      <div class="edu-yr">2003 · Postgraduate</div>
+      <div class="edu-deg">M.E.</div>
+      <div class="edu-uni">Bharathiyar University</div>
+      <div class="edu-col">Coimbatore Institute of Technology, Coimbatore</div>
+      <div style="margin-top:.7rem"><span class="pill">First Class &amp; Distinction</span></div>
+    </div>
+    <div class="edu-card phd">
+      <div class="edu-yr">2019 · Doctorate</div>
+      <div class="edu-deg">Ph.D.</div>
+      <div class="edu-uni">Anna University</div>
+      <div class="edu-col">Anna University Chennai · Image Processing</div>
+      <div style="margin-top:.7rem"><span class="pill" style="background:rgba(251,191,36,.1);color:var(--go);border-color:rgba(251,191,36,.22)">Completed 2019</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ EXPERIENCE ════════════════════ -->
+<section id="experience">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">02</span><h2 class="sh-t">Work Experience</h2><div class="sh-line"></div><span class="sh-count">Total: 24.8 yrs</span></div>
+  <div class="tline fu">
+    <div class="tl-item">
+      <div class="tl-date">12 May 2006 – Present &nbsp;·&nbsp; 19.9 Years</div>
+      <div class="tl-role">Assistant Professor</div>
+      <div class="tl-org">Government College of Engineering Erode (Formerly IRTT), Tamil Nadu</div>
+      <span class="tl-tag">Current Position</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">30 Apr 2003 – 06 May 2006</div>
+      <div class="tl-role">Lecturer</div>
+      <div class="tl-org">V.L.B. Janakiammal College of Engineering and Technology</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">20 Aug 1999 – 06 May 2006</div>
+      <div class="tl-role">Lecturer</div>
+      <div class="tl-org">Dr. Navalar Nedunchezian College of Engineering</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ PUBLICATIONS ════════════════════ -->
+<section id="publications">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">03</span><h2 class="sh-t">Publications</h2><div class="sh-line"></div><span class="sh-count">Total: 20 · Citations: 61</span></div>
+
+  <div class="pub-kpis fu">
+    <div class="pkpi"><div class="pkpi-n">20</div><div class="pkpi-l">Total Pubs</div></div>
+    <div class="pkpi"><div class="pkpi-n">61</div><div class="pkpi-l">Total Citations</div></div>
+    <div class="pkpi"><div class="pkpi-n">11</div><div class="pkpi-l">Journals</div></div>
+    <div class="pkpi"><div class="pkpi-n">27</div><div class="pkpi-l">Journal Citations</div></div>
+  </div>
+
+  <!-- JOURNALS -->
+  <div class="sub-strip fu"><span>JOURNAL ARTICLES</span><span>Total: 11 · Citations: 27</span></div>
+  <div class="pub-list fu">
+    <div class="pub-row"><span class="qb q1">Q1</span><div class="pub-body"><div class="pub-title">A Robust Wavelet Based Decomposition of Facial Images to Improve Recognition Accuracy in Standard Appearance Based Statistical Face Recognition Methods</div><div class="pub-meta"><span>SPRINGER · Vol.22 · ISSN: 13867857 · 2019</span><span class="pub-cit">⊕ 5 citations</span></div></div></div>
+    <div class="pub-row"><span class="qb q2">Q2</span><div class="pub-body"><div class="pub-title">A Proposed Method for the Improvement in Biometric Facial Image Recognition Using Document-Based Classification</div><div class="pub-meta"><span>SPRINGER · Vol.76 · Issue 6 · ISSN: 09208542 · 2020</span><span class="pub-cit">⊕ 4 citations</span></div></div></div>
+    <div class="pub-row"><span class="qb q3">Q3</span><div class="pub-body"><div class="pub-title">A Comparative Study of 2D PCA Face Recognition Method with Other Statistically Based Face Recognition Methods</div><div class="pub-meta"><span>SPRINGER · Vol.97 · Issue 3 · ISSN: 22502106 · 2016</span><span class="pub-cit">⊕ 18 citations</span></div></div></div>
+    <div class="pub-row"><span class="qb ut">UNTRACKED</span><div class="pub-body"><div class="pub-title">Performance Improvement in the Bivariate Models by Using Modified Marginal Variance of Noisy Observations for Image-Denoising Applications</div><div class="pub-meta"><span>World Academy of Science, Engineering and Technology · Vol.1 · Issue 11 · ISSN: 1307-6892 · 2007</span></div></div></div>
+    <div class="pub-row"><span class="qb ut">UNTRACKED</span><div class="pub-body"><div class="pub-title">Face Databases for 2D and 3D Facial Recognition: A Survey</div><div class="pub-meta"><span>IOSR · Vol.3 · Issue 4 · ISSN: 2250-3021 · 2013</span></div></div></div>
+    <div class="pub-row"><span class="qb ut">UNTRACKED</span><div class="pub-body"><div class="pub-title">Performance Analysis of 1D and 2D Statistical Measures on Standard Facial Image Databases</div><div class="pub-meta"><span>IDOSI Publications · Vol.24 · Issue 12 · ISSN: 1990-9233 · 2016</span></div></div></div>
+    <div class="pub-row"><span class="qb ut">UNTRACKED</span><div class="pub-body"><div class="pub-title">Improvement and Solution to the Problems Arise in the Implementation of Facial Image Recognition Algorithms Using Open Source Software Scilab</div><div class="pub-meta"><span>IDOSI Publications · Vol.34 · Issue 12 · ISSN: 1818-4952 · 2016</span></div></div></div>
+    <div class="pub-row"><span class="qb ut">UNTRACKED</span><div class="pub-body"><div class="pub-title">Embedded Based Anti-Earthquake Bed with Health Monitoring System and Data Analysis Using Python Software</div><div class="pub-meta"><span>MAT Journals · Vol.4 · Issue 2 · 2019</span></div></div></div>
+    <div class="pub-row"><span class="qb ut">UNTRACKED</span><div class="pub-body"><div class="pub-title">Statistical Measures to Test the Stability of Face Recognition Approach: Duplicating Human Faces Based on Crosscorrelation Study</div><div class="pub-meta"><span>MAT Journals · Vol.5 · Issue 3 · ISSN: 2581-3803 · 2019</span></div></div></div>
+    <div class="pub-row"><span class="qb ut">UNTRACKED</span><div class="pub-body"><div class="pub-title">Machine Learning Based Classification of Contaminated Drinking Water Using Raspberry Pi Embedded System and IoT Device</div><div class="pub-meta"><span>MAT Journals · Vol.6 · Issue 2 · ISSN: 2581-3803 · 2020</span></div></div></div>
+    <div class="pub-row"><span class="qb ut">UNTRACKED</span><div class="pub-body"><div class="pub-title">A Novel Artificial Neural Network and 2DPCA-Based Hybrid Approach for Face Recognition</div><div class="pub-meta"><span>International Journal of Advanced Research Trends in Engineering and Technology · Vol.7 · Issue 7 · ISSN: 2394-3785 · 2020</span></div></div></div>
+  </div>
+
+  <!-- CONFERENCE PROCEEDINGS -->
+  <div class="sub-strip fu"><span>CONFERENCE PROCEEDINGS</span><span>Total: 2 · Citations: 0</span></div>
+  <div class="pub-list fu">
+    <div class="pub-row"><span class="qb cf">CONF</span><div class="pub-body"><div class="pub-title">Performance Comparison of Machine Learning Techniques for Facial Image Classification and Recognition</div><div class="pub-meta"><span>Dayanandha Sagar University · Vol.1 · ISBN: 978-93-5416-894-9 · 2020</span></div></div></div>
+    <div class="pub-row"><span class="qb cf">CONF</span><div class="pub-body"><div class="pub-title">Face Mask Detection and Warning System Using AI and IoT</div><div class="pub-meta"><span>Ramco Institute of Technology · Vol.2 · ISBN: 978-93-5445-212-3 · 2021</span></div></div></div>
+  </div>
+
+  <!-- CONFERENCE PAPER -->
+  <div class="sub-strip fu"><span>CONFERENCE PAPER</span><span>Total: 1 · Citations: 0</span></div>
+  <div class="pub-list fu">
+    <div class="pub-row"><span class="qb cf">PAPER</span><div class="pub-body"><div class="pub-title">Smart Eye</div><div class="pub-meta"><span>Kongu Engineering College · 2021</span></div></div></div>
+  </div>
+
+  <!-- CONFERENCE PROCEEDING (with citations) -->
+  <div class="sub-strip fu"><span>CONFERENCE PROCEEDING (WITH CITATIONS)</span><span>Total: 5 · Citations: 34</span></div>
+  <div class="pub-list fu">
+    <div class="pub-row"><span class="qb cf">IEEE</span><div class="pub-body"><div class="pub-title">A Detailed Survey on 2D and 3D Still Face and Face Video Databases – Part II</div><div class="pub-meta"><span>IEEE Digital Library · 2014</span><span class="pub-cit">⊕ 3 citations</span></div></div></div>
+    <div class="pub-row"><span class="qb cf">IEEE</span><div class="pub-body"><div class="pub-title">A Detailed Survey on 2D and 3D Still Face and Face Video Databases – Part I</div><div class="pub-meta"><span>IEEE Xplore Digital Library · 2014</span><span class="pub-cit">⊕ 9 citations</span></div></div></div>
+    <div class="pub-row"><span class="qb cf">ACM</span><div class="pub-body"><div class="pub-title">A New Approach in Face Recognition: Duplicating Facial Images Based on Correlation Study</div><div class="pub-meta"><span>ACM Digital Library · 2016</span><span class="pub-cit">⊕ 5 citations</span></div></div></div>
+    <div class="pub-row"><span class="qb cf">IEEE</span><div class="pub-body"><div class="pub-title">Performance Improvement in Classification Rate of Appearance Based Statistical Face Recognition Methods Using SVM Classifier</div><div class="pub-meta"><span>IEEE Xplore Digital Library · 2017</span><span class="pub-cit">⊕ 16 citations</span></div></div></div>
+    <div class="pub-row"><span class="qb cf">IEEE</span><div class="pub-body"><div class="pub-title">Facial Image Database Mining and Classification Analysis Using Different Distance Metrics</div><div class="pub-meta"><span>IEEE Xplore Digital Library · 2017</span><span class="pub-cit">⊕ 1 citation</span></div></div></div>
+  </div>
+
+  <!-- RESEARCH REPORT -->
+  <div class="sub-strip fu"><span>RESEARCH REPORT</span><span>Total: 1 · Citations: 0</span></div>
+  <div class="pub-list fu">
+    <div class="pub-row"><span class="qb ut">REPORT</span><div class="pub-body"><div class="pub-title">Construction of Own Face and Video Face Databases for Face Recognition and Testing with Standard Face Recognition Methods</div><div class="pub-meta"><span>Institution of Engineers India · Vol.1 · ISBN: 978-81-932567-1-8 · 2016</span></div></div></div>
+  </div>
+
+  <!-- TESTING AND CONSULTANCY -->
+  <div class="sub-strip fu"><span>TESTING AND CONSULTANCY</span><span>Total: 2</span></div>
+  <div class="pub-list fu">
+    <div class="pub-row"><span class="qb ut">CONSULT</span><div class="pub-body"><div class="pub-title">Annual Maintenance of BDS (Bus Driver Simulator) IRT Taramani</div><div class="pub-meta"><span>IRT Taramani · Additional Director · 2012</span></div></div></div>
+    <div class="pub-row"><span class="qb ut">CONSULT</span><div class="pub-body"><div class="pub-title">Keeping Bridges Safe: New Imaging Program Automatically Detects Irregularities in Bridges</div><div class="pub-meta"><span>IRT Taramani · Additional Director · 2012</span></div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ PATENT ════════════════════ -->
+<section id="patent">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">04</span><h2 class="sh-t">Patent</h2><div class="sh-line"></div><span class="sh-count">Total: 1 Granted</span></div>
+  <div class="patent-card fu">
+    <div class="pat-id">#528027</div>
+    <div>
+      <div class="pat-lbl">Granted Patent · India · 2018</div>
+      <div class="pat-title">A Fast Accurate Face Recognition System Using Combined Wavelet Decomposition System and Correlation Test System</div>
+      <div class="pat-meta">Intellectual Property India, Department of Commerce and Industry · Grant No: 528027 · Publication No: 528027</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ BOOKS ════════════════════ -->
+<section id="books">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">05</span><h2 class="sh-t">Books Authored</h2><div class="sh-line"></div><span class="sh-count">Total: 6</span></div>
+  <div class="books-grid fu">
+    <div class="book-card"><div class="bk-yr">2022 · YESDEE</div><div class="bk-title">Electromagnetic Fields with MATLAB and Scilab Programs</div></div>
+    <div class="book-card"><div class="bk-yr">2021 · YESDEE</div><div class="bk-title">Digital Signal Processing and Its Applications</div></div>
+    <div class="book-card"><div class="bk-yr">2018 · YESDEE</div><div class="bk-title">Electric Circuits Theory and Analysis</div></div>
+    <div class="book-card"><div class="bk-yr">2017 · YESDEE</div><div class="bk-title">Circuit Theory</div></div>
+    <div class="book-card"><div class="bk-yr">2015 · Anuradha Publications</div><div class="bk-title">Analog and Digital Communication</div></div>
+    <div class="book-card"><div class="bk-yr">2011 · Anuradha Publications</div><div class="bk-title">Signals and Systems</div></div>
+  </div>
+
+  <div class="sub-strip fu"><span>BOOK CHAPTERS</span><span>Total: 5</span></div>
+  <div class="chap-list fu">
+    <div class="chap-row"><div class="chap-t">India's G20 Presidency: A Way Towards a New World Order</div><div class="chap-p">691 Publishers Chennai · 2024</div></div>
+    <div class="chap-row"><div class="chap-t">India's G20 Presidency: A Way Towards a New World Order</div><div class="chap-p">691 Publishers Chennai · 2024</div></div>
+    <div class="chap-row"><div class="chap-t">Seminar Report on Replacing Proprietary Software Using Open Source Software Python Libraries in the Field of Signal, Audio and Image Processing</div><div class="chap-p">Institute of Road and Transport Technology · 2020</div></div>
+    <div class="chap-row"><div class="chap-t">Seminar Report on Replacing Proprietary Software Using Open Source Software Python Libraries in the Field of Signal, Audio and Image Processing — Chapter 2: Signal Processing Algorithms and Lab Using Python</div><div class="chap-p">Institute of Road and Transport Technology · 2020</div></div>
+    <div class="chap-row"><div class="chap-t">Smart Innovations in Communication and Computational Sciences</div><div class="chap-p">Springer · 2018</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ CERTIFICATIONS ════════════════════ -->
+<section id="certifications">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">06</span><h2 class="sh-t">Certifications</h2><div class="sh-line"></div><span class="sh-count">Total: 25</span></div>
+  <div class="cert-grid fu">
+    <div class="cert-row"><div class="cert-dot cd-gold"></div><div><div class="cert-nm">Domain Certificate: Communication and Signal Processing</div><div class="cert-org">NPTEL IIT Madras · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-gold"></div><div><div class="cert-nm">Discipline Star: Electrical Engineering</div><div class="cert-org">NPTEL IIT Madras · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">Mentor Certificate: The Joy of Computing using Python</div><div class="cert-org">NPTEL IIT Madras · Intermediate · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">Appreciation Letter for Coordinator: Soft Skill Training</div><div class="cert-org">NPTEL IIT Madras · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">Mentor Certificate: Programming in JAVA</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">Mentor Certificate: Digital System Design</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-purple"></div><div><div class="cert-nm">Amateur Wireless Station License (Amateur Radio)</div><div class="cert-org">Ministry of Telecommunication, Govt. of India · Intermediate · Regular</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">Digital Skilling: Digital Skill Techniques</div><div class="cert-org">Centre for Continuing Education, IIT Madras · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">FDP: Communication Networks</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">FDP: Deep Learning</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">FDP: Digital Image Processing</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">FDP: Hardware Modeling using Verilog</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">FDP: Introduction to Machine Learning</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">FDP: Mathematical and Techniques in Signal Processing</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">FDP: Multirate DSP</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">FDP: Python for Data Science</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-blue"></div><div><div class="cert-nm">FDP: Signal Processing Techniques and Its Applications</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-gold"></div><div><div class="cert-nm">NPTEL Online Certification: Principles of Communication Systems II</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-gold"></div><div><div class="cert-nm">NPTEL Online Certification: Discrete Time Signal Processing</div><div class="cert-org">NPTEL · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-purple"></div><div><div class="cert-nm">NITTT Module 1: Orientation Towards Technical Education and Curriculum Aspects</div><div class="cert-org">AICTE &amp; NITTT · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-purple"></div><div><div class="cert-nm">NITTT Module 2: Professional Ethics and Sustainability</div><div class="cert-org">AICTE &amp; NITTT · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-purple"></div><div><div class="cert-nm">NITTT Module 3: Communication Skill, Modes and Knowledge Dissemination</div><div class="cert-org">AICTE &amp; NITTT · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-purple"></div><div><div class="cert-nm">NITTT Module 4: Instructional Planning and Delivery</div><div class="cert-org">AICTE &amp; NITTT · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-purple"></div><div><div class="cert-nm">NITTT Module 5: Technology Enabled Learning and Life Long Self Learning</div><div class="cert-org">AICTE &amp; NITTT · Expert · Online</div></div></div>
+    <div class="cert-row"><div class="cert-dot cd-purple"></div><div><div class="cert-nm">NITTT Module 6: Students Assessments and Evaluation</div><div class="cert-org">AICTE &amp; NITTT · Expert · Online</div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ SKILLS ════════════════════ -->
+<section id="skills">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">07</span><h2 class="sh-t">Skills &amp; Subjects</h2><div class="sh-line"></div></div>
+  <div class="skill-grid fu">
+    <div class="skill-group"><div class="sg-title">Programming &amp; Software</div><div class="tags"><span class="tag">Python</span><span class="tag">Scilab</span><span class="tag">MATLAB</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">Java</span><span class="tag">ORACLE</span><span class="tag">Visual Basic</span><span class="tag">Embedded-C</span></div></div>
+    <div class="skill-group"><div class="sg-title">HDL &amp; EDA Tools</div><div class="tags"><span class="tag">Verilog</span><span class="tag">VHDL</span><span class="tag">Vivado</span><span class="tag">Xilinx</span><span class="tag">Code Composer Studio</span></div></div>
+    <div class="skill-group"><div class="sg-title">AI / ML / Data Science</div><div class="tags"><span class="tag">AI</span><span class="tag">Machine Learning</span><span class="tag">Deep Learning</span><span class="tag">Image Processing</span><span class="tag">ANN</span><span class="tag">Fuzzy Logic</span></div></div>
+    <div class="skill-group"><div class="sg-title">Embedded &amp; IoT</div><div class="tags"><span class="tag">IoT</span><span class="tag">VLSI</span><span class="tag">Arduino</span><span class="tag">Raspberry Pi</span><span class="tag">ESP32</span><span class="tag">Embedded Systems</span></div></div>
+    <div class="skill-group"><div class="sg-title">OS &amp; E-Learning Platforms</div><div class="tags"><span class="tag">Windows</span><span class="tag">Ubuntu Linux</span><span class="tag">Google Classroom</span><span class="tag">Moodle</span><span class="tag">Bodhi Tree</span></div></div>
+    <div class="skill-group"><div class="sg-title">Subjects Handled</div><div class="tags"><span class="tag">Medical Electronics</span><span class="tag">Digital Signal Processing</span><span class="tag">Machine Learning</span><span class="tag">Deep Learning</span><span class="tag">Data Science</span><span class="tag">Signals &amp; Systems</span><span class="tag">Electromagnetic Fields</span><span class="tag">Circuit Analysis</span><span class="tag">Analog &amp; Digital Communication</span><span class="tag">Measurement &amp; Instrumentation</span><span class="tag">Wireless Communication</span></div></div>
+    <div class="skill-group"><div class="sg-title">Languages Known</div><div class="tags"><span class="tag">Hindi</span><span class="tag">English</span><span class="tag">Tamil</span></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ EVENTS ORGANISED ════════════════════ -->
+<section id="events-org">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">08</span><h2 class="sh-t">Events Organised</h2><div class="sh-line"></div><span class="sh-count">Total: 16</span></div>
+
+  <div class="sub-strip fu"><span>WORKSHOPS</span><span>Total: 10</span></div>
+  <div class="ev-grid fu">
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">Intensive Workshop on MATLAB for Research Applications</div><div class="ev-org">Management</div><div class="ev-date">26–28 Jun 2009</div><div class="ev-amt">₹9,000</div></div>
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">Two Days Workshop on Open Source Signal Processing Softwares</div><div class="ev-org">External Organisation</div><div class="ev-date">18–19 Jul 2009</div><div class="ev-amt">₹40,000</div></div>
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">Replacing MATLAB Using Open Source Scilab for Digital Signal Processing Lab Applications</div><div class="ev-org">External Organisation</div><div class="ev-date">10 Sep 2011</div><div class="ev-amt">₹16,000</div></div>
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">Digital Image Processing Using Scilab Software</div><div class="ev-org">External Organisation</div><div class="ev-date">17 Sep 2011</div><div class="ev-amt">₹16,000</div></div>
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">One Day Workshop on Interfacing NI LabVIEW with MATLAB &amp; Scilab and Real Time Data Acquisition</div><div class="ev-org">External Organisation</div><div class="ev-date">22 Sep 2012</div><div class="ev-amt">₹1,000</div></div>
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">Python Workshop</div><div class="ev-org">External Organisation</div><div class="ev-date">29 Sep 2012</div><div class="ev-amt">₹15,000</div></div>
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">Introduction to Scientific Computing Using Python</div><div class="ev-org">External Organisation</div><div class="ev-date">06 Sep 2018</div></div>
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">Embedded and Real Time Operating Systems</div><div class="ev-org">Management</div><div class="ev-date">19–22 Aug 2019</div></div>
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">Python for Signal Processing Algorithm Implementation</div><div class="ev-org">External Organisation</div><div class="ev-date">18 Jun 2020</div><div class="ev-amt">₹22,000</div></div>
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">NPTEL E-Workshop</div><div class="ev-org">External Organisation</div><div class="ev-date">22 Jun 2022</div></div>
+  </div>
+
+  <div class="sub-strip fu"><span>SEMINARS</span><span>Total: 2</span></div>
+  <div class="ev-grid fu">
+    <div class="ev-card"><div class="ev-cat">Seminar</div><div class="ev-name">Replacing Proprietary Software Using Open Source Software Python Libraries in the Field of Signal, Audio and Image Processing</div><div class="ev-org">External Organisation</div><div class="ev-date">07–08 Nov 2020</div><div class="ev-amt">₹20,000</div></div>
+    <div class="ev-card"><div class="ev-cat">Seminar</div><div class="ev-name">Impact Lecture Series</div><div class="ev-org">External Organisation</div><div class="ev-date">16 Apr 2024</div><div class="ev-amt">₹20,000</div></div>
+  </div>
+
+  <div class="sub-strip fu"><span>SEMINOR</span><span>Total: 1</span></div>
+  <div class="ev-grid fu">
+    <div class="ev-card"><div class="ev-cat">Seminor</div><div class="ev-name">Advanced IoT &amp; Embedded Systems</div><div class="ev-org">External Organisation</div><div class="ev-date">10 Jun 2021</div></div>
+  </div>
+
+  <div class="sub-strip fu"><span>FDP ORGANISED</span><span>Total: 1</span></div>
+  <div class="ev-grid fu">
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Application of Open Source Free Software in Electronics, Telecommunication &amp; Engineering</div><div class="ev-org">External Organisation</div><div class="ev-date">02–15 Jun 2013</div><div class="ev-amt">₹3,68,785</div></div>
+  </div>
+
+  <div class="sub-strip fu"><span>PROJECT CONTESTS</span><span>Total: 2</span></div>
+  <div class="ev-grid fu">
+    <div class="ev-card"><div class="ev-cat">Project Contest</div><div class="ev-name">IRTT Student State Level Design Contest 2020</div><div class="ev-org">Internal</div><div class="ev-date">04 Apr 2020</div></div>
+    <div class="ev-card"><div class="ev-cat">Project Contest</div><div class="ev-name">IRTT Student State Level Design Contest 2021</div><div class="ev-org">External Organisation</div><div class="ev-date">25 Jan 2021</div><div class="ev-amt">₹11,500</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ EVENTS ATTENDED ════════════════════ -->
+<section id="events-att">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">09</span><h2 class="sh-t">Events Attended</h2><div class="sh-line"></div><span class="sh-count">Total: 25</span></div>
+
+  <div class="sub-strip fu"><span>FDP ATTENDED</span><span>Total: 21</span></div>
+  <div class="ev-grid fu">
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Probability &amp; Random Process, Digital Communication</div><div class="ev-org">IIT Madras</div><div class="ev-date">17–18 Jul 2007</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Power Management and Energy Security Initiatives for Socio Economic Development in India</div><div class="ev-org">Coimbatore Institute of Technology</div><div class="ev-date">13–27 Nov 2011</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Nano Materials — Synthesis, Characterization and Engineering Applications</div><div class="ev-org">IRTT Erode</div><div class="ev-date">11–24 Dec 2011</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Strategies in Enhancing Research</div><div class="ev-org">Anna University of Technology, Coimbatore</div><div class="ev-date">16–17 Feb 2012</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Mobile Communication</div><div class="ev-org">Madras Institute of Technology Anna University</div><div class="ev-date">14–20 May 2012</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Advanced Power Electronics &amp; Real Time Digital Controllers</div><div class="ev-org">National Institute of Technology, Bhopal</div><div class="ev-date">04–08 Jun 2012</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Recent Trends in Measurement and Automation</div><div class="ev-org">Pondicherry Engineering College</div><div class="ev-date">10–14 Dec 2012</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Verification and Testing of VLSI Circuits</div><div class="ev-org">PSG College of Technology</div><div class="ev-date">06–19 Nov 2013</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Optimizing Techniques in Electrical Power System</div><div class="ev-org">Government College of Engineering Bargur</div><div class="ev-date">04–10 Dec 2013</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Entrepreneurship</div><div class="ev-org">Government College of Engineering Bargur</div><div class="ev-date">17–23 Nov 2014</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Embedded System Design</div><div class="ev-org">Coimbatore Institute of Technology</div><div class="ev-date">23–29 Nov 2015</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Renewable Energy Sources — Challenges and Opportunities</div><div class="ev-org">Government College of Engineering Bargur</div><div class="ev-date">18–24 May 2016</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Engineering Entrepreneurship</div><div class="ev-org">Institute of Road and Transport Technology</div><div class="ev-date">27 Nov – 11 Dec 2016</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Embedded Systems and VLSI Design</div><div class="ev-org">Government College of Engineering Salem</div><div class="ev-date">09–15 May 2018</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Internet of Things (IoT)</div><div class="ev-org">AICTE ATAL</div><div class="ev-date">30 Nov – 04 Dec 2020</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Augmented Reality and Virtual Reality</div><div class="ev-org">AICTE ATAL</div><div class="ev-date">15–19 Dec 2020</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Universal Human Values</div><div class="ev-org">AICTE</div><div class="ev-date">31 May – 04 Jun 2021</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Blockchain Technology and Its Applications: An Implementation Perspective</div><div class="ev-org">GCT Coimbatore</div><div class="ev-date">06 Feb 2023 – 10 Feb 2025</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Innovation, Entrepreneurship and IPR</div><div class="ev-org">Vel Tech TBI &amp; IPR Cell</div><div class="ev-date">02–14 Dec 2024</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Embedded Systems for Automotive Applications</div><div class="ev-org">Government College of Technology</div><div class="ev-date">06–10 Jan 2025</div></div>
+    <div class="ev-card"><div class="ev-cat">FDP</div><div class="ev-name">Industry IoT and Industry 4.0</div><div class="ev-org">Tamilnadu Skill Development Corporation — Naan Mudhalvan Scheme</div><div class="ev-date">28 Jul – 02 Aug 2025</div></div>
+  </div>
+
+  <div class="sub-strip fu"><span>CONFERENCE</span><span>Total: 1</span></div>
+  <div class="ev-grid fu">
+    <div class="ev-card"><div class="ev-cat">Conference</div><div class="ev-name">International Conference on Recent Advances in Technology, Engineering, Management and Science (ICRATEMS-2011)</div><div class="ev-org">Vivekanandha College of Engineering for Women, Tiruchengode</div><div class="ev-date">04–06 Mar 2011</div></div>
+  </div>
+
+  <div class="sub-strip fu"><span>OTHERS</span><span>Total: 2</span></div>
+  <div class="ev-grid fu">
+    <div class="ev-card"><div class="ev-cat">Others</div><div class="ev-name">Research Challenges in VLSI Design and Testing</div><div class="ev-org">Coimbatore Institute of Technology</div><div class="ev-date">08–14 Dec 2014</div></div>
+    <div class="ev-card"><div class="ev-cat">Others</div><div class="ev-name">Additive Manufacturing of Multi-functional Nanocomposites</div><div class="ev-org">Institute of Road and Transport Technology</div><div class="ev-date">26–30 Jul 2021</div></div>
+  </div>
+
+  <div class="sub-strip fu"><span>WORKSHOP</span><span>Total: 1</span></div>
+  <div class="ev-grid fu">
+    <div class="ev-card"><div class="ev-cat">Workshop</div><div class="ev-name">ARM Powered Embedded System Design</div><div class="ev-org">K.S.R College of Engineering</div><div class="ev-date">11–12 Nov 2009</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ DELIVERABLES ════════════════════ -->
+<section id="deliverables">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">10</span><h2 class="sh-t">Deliverables</h2><div class="sh-line"></div><span class="sh-count">Total: 26</span></div>
+  <div class="deliv-grid fu">
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Experimental Learning on Security and Privacy in 5G Communication using Python</div><div class="deliv-org">IEEE Communication Society Chapter Vel Tech</div><div class="deliv-dt">12 Sep 2024</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Two Days Scilab Hands-on Training</div><div class="deliv-org">M. Kumarasamy College of Engineering (External)</div><div class="deliv-dt">18–19 Jul 2024</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Hands-on Training on OpenCV in Python and Implementation of Computer Vision Based Applications</div><div class="deliv-org">Anna University Regional Campus, Coimbatore</div><div class="deliv-dt">22 Aug – 22 Oct 2023</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">E-Learning Course Progress</div><div class="deliv-org">E.S College of Nursing</div><div class="deliv-dt">20 Jun 2023</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">5G Communication — Signal Processing in 5G Communication</div><div class="deliv-org">Vel Tech R&amp;D Institute of Science and Technology</div><div class="deliv-dt">17 Mar 2023</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Filter Design using MATLAB</div><div class="deliv-org">Vel Tech Multi Tech Dr. Rangarajan Dr. Sakunthala Engineering College</div><div class="deliv-dt">03 Mar 2023</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Hands-on Training Programme on Simulation of Analog and Digital Circuits using MULTISIM and other Open Source Simulation Softwares</div><div class="deliv-org">PG and Research Department of Physics, Jamal Mohamed College</div><div class="deliv-dt">22 Feb 2023</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Implementing and Testing of Data Science Methods with Practical Data using Python</div><div class="deliv-org">Salem College of Engineering and Technology, Salem</div><div class="deliv-dt">11 Feb 2023</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Finite Word Length Effect (Digital Signal Processing)</div><div class="deliv-org">ECE Department, Anna University Regional Coimbatore Campus</div><div class="deliv-dt">25 Nov 2022</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Universal Human Values for First Year Student Induction Program</div><div class="deliv-org">Government College of Engineering Erode (Internal)</div><div class="deliv-dt">23 Nov 2022</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">ML &amp; DL using Python and Automated ML</div><div class="deliv-org">Vel Tech R&amp;D Institute of Science and Technology</div><div class="deliv-dt">27 Jul 2022</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Emerging Advancement of Wireless Communication and Applications of Power Electronics in Smartgrid System</div><div class="deliv-org">Jeppiaar Institute of Technology</div><div class="deliv-dt">01 Feb – 01 Mar 2022</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Python for Data Science, Signal and Image Processing</div><div class="deliv-org">St. Vincent Pallotti College of Engineering &amp; Technology</div><div class="deliv-dt">15–17 Jan 2021</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Digital Image Processing using Google Colab</div><div class="deliv-org">FOSSEE IIT Bombay</div><div class="deliv-dt">19–20 Dec 2020</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Signal Processing and Audio Processing Lab using Python</div><div class="deliv-org">GCE Erode (External) · Tamilnadu State Council for Science and Technology · ₹20,000</div><div class="deliv-dt">07–08 Nov 2020</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Image and Video Processing Lab using OpenCV and Python Libraries</div><div class="deliv-org">GCE Erode (External) · Tamilnadu State Council for Science and Technology · ₹20,000</div><div class="deliv-dt">07–08 Nov 2020</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Performance Comparison of Machine Learning Techniques for Image Classification and Recognition</div><div class="deliv-org">Dayananda Sagar University, ECE School, Bengaluru</div><div class="deliv-dt">11 Sep 2020 – 11 Nov 2025</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Python for Signal Processing Algorithm Implementation</div><div class="deliv-org">GCE Erode (External) · Python Software Foundation · ₹22,000</div><div class="deliv-dt">18 Jun 2020</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Applications of SCILAB in DSP and Digital Communication</div><div class="deliv-org">Dr. T. Thimmaih Institute of Technology, Kola Gold Fields, Karnataka</div><div class="deliv-dt">16–18 Jan 2020</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Digital Signal Processing using Python — International Conference on Python for Education and Scientific Computing</div><div class="deliv-org">IIT Bombay</div><div class="deliv-dt">29–30 Nov 2019</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Applications of SCILAB in DSP and Image Processing</div><div class="deliv-org">Navodaya Institute of Technology, Raichur</div><div class="deliv-dt">12–13 Aug 2016</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">EC6502 — Principles of Digital Signal Processing</div><div class="deliv-org">M.P. Nachimuthu M. Jaganathan Engineering College</div><div class="deliv-dt">23–29 May 2016</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Digital Image Processing using Scilab Toolboxes</div><div class="deliv-org">IIT Bombay</div><div class="deliv-dt">03–04 Dec 2014</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Scilab for Research Applications — Face Recognition</div><div class="deliv-org">Institute of Road and Transport Technology, Erode</div><div class="deliv-dt">02–15 Jun 2013</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Introduction to Open Source Scilab</div><div class="deliv-org">Institute of Road and Transport Technology, Erode</div><div class="deliv-dt">02–15 Jun 2013</div></div></div>
+    <div class="deliv-card"><div class="deliv-dot"></div><div><div class="deliv-nm">Scilab Workshop</div><div class="deliv-org">Sastra University</div><div class="deliv-dt">28 Aug 2010</div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ COMPETITIONS ════════════════════ -->
+<section id="competitions">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">11</span><h2 class="sh-t">Competitions</h2><div class="sh-line"></div><span class="sh-count">Total: 5</span></div>
+  <div class="comp-list fu">
+    <div class="comp-card"><div class="comp-badge cb-gold">I Prize</div><div><div class="comp-name">National Medical GIS Hackathon 2025 (Edition 01: One Health)</div><div class="comp-org">FOSSEE IIT Bombay · IIT Bombay</div></div></div>
+    <div class="comp-card"><div class="comp-badge cb-silver">Consolation</div><div><div class="comp-name">National Medical GIS Hackathon 2025 (Edition 01: One Health)</div><div class="comp-org">FOSSSEE IIT Bombay · IIT Bombay</div></div></div>
+    <div class="comp-card"><div class="comp-badge cb-silver">III Prize</div><div><div class="comp-name">IITB-ISRO-AICTE Mapathon</div><div class="comp-org">IIT Bombay, ISRO and AICTE · IIT Bombay and ISRO</div></div></div>
+    <div class="comp-card"><div class="comp-badge cb-green">Participation</div><div><div class="comp-name">An IoT Based Multi Secured Device for Home and Industry Automation</div><div class="comp-org">IEEE YESIST12 2023 Prelims · NITTE Meenakshi Institute of Technology</div></div></div>
+    <div class="comp-card"><div class="comp-badge cb-green">Participation</div><div><div class="comp-name">Crime Vision: Advanced Crime Classification</div><div class="comp-org">IEEE YESIST12 2023 Prelims · NITTE Meenakshi Institute of Technology</div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ CORPORATE TRAINING ════════════════════ -->
+<section id="corp-training">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">12</span><h2 class="sh-t">Corporate Training Provided</h2><div class="sh-line"></div><span class="sh-count">Total: 9</span></div>
+  <div class="train-list fu">
+    <div class="train-card"><div><div class="tr-name">2 Weeks Industrial Training on AI on Supply Chain Management</div><div class="tr-topic">Data Science, Machine Learning, IoT, Cloud Computing and Industrial Automation</div><div class="tr-org">Tamil Nadu Apex Skill Development Centre for Logistics · Oragadam, Chennai · ₹500</div></div><div class="tr-date">12–26 Dec 2024</div></div>
+    <div class="train-card"><div><div class="tr-name">Skill Development on Full Stack Developer Training</div><div class="tr-topic">Software</div><div class="tr-org">ISTE and BNY MELLON · Bangalore · ₹0</div></div><div class="tr-date">10 Oct 2023 – 29 Jan 2024</div></div>
+    <div class="train-card"><div><div class="tr-name">Internship Training on Amazon Web Services</div><div class="tr-topic">AWS Cloud Utilization for Machine Learning and Deep Learning</div><div class="tr-org">PANTECH E-Learning Pvt Ltd · Chennai · ₹1,000</div></div><div class="tr-date">07 Jun – 07 Jul 2023</div></div>
+    <div class="train-card"><div><div class="tr-name">IBM Career Education Program — Mentoring in Professional Readiness for Innovation, Employability and Entrepreneurship on Emerging Technology</div><div class="tr-topic">Artificial Intelligence, Applied Data Science, Data Analytics, IoT, Cloud App Development</div><div class="tr-org">IBM · Bangalore</div></div><div class="tr-date">01 Feb – 02 Jun 2023</div></div>
+    <div class="train-card"><div><div class="tr-name">Faculty Built-A-Thon</div><div class="tr-topic">Artificial Intelligence</div><div class="tr-org">IBM · IBM Bangalore</div></div><div class="tr-date">01 Jul – 19 Aug 2022</div></div>
+    <div class="train-card"><div><div class="tr-name">TNSDC-TCS iON Project</div><div class="tr-topic">IoT and Game Development</div><div class="tr-org">TCS iON · Chennai</div></div><div class="tr-date">01 Jul 2022 – 28 Apr 2023</div></div>
+    <div class="train-card"><div><div class="tr-name">FOSSEE Scilab Communication Toolbox Development</div><div class="tr-topic">Scilab Software</div><div class="tr-org">FOSSEE · IIT Bombay</div></div><div class="tr-date">01 Aug – 31 Dec 2015</div></div>
+    <div class="train-card"><div><div class="tr-name">Inplant Training — Television &amp; Remote</div><div class="tr-topic">Television, Remote</div><div class="tr-org">ELCOT Tamilnadu · Perungudi, Chennai · ₹0</div></div><div class="tr-date">01–13 Jun 1998</div></div>
+    <div class="train-card"><div><div class="tr-name">Inplant Training — Antenna, Stabilizer, Booster</div><div class="tr-topic">Antenna, Stabilizer, Booster</div><div class="tr-org">UMS Radio Factory · Peelamedu, Coimbatore · ₹0</div></div><div class="tr-date">13 Jun – 03 Jul 1997</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ PROJECTS ════════════════════ -->
+<section id="projects">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">13</span><h2 class="sh-t">Projects</h2><div class="sh-line"></div><span class="sh-count">Total: 3 Completed</span></div>
+  <div class="proj-row fu">
+    <div class="proj-card"><div class="proj-yr">2012 · Completed · ₹10,000</div><div class="proj-title">Lab Migration Project: Communication System Lab Using Scilab</div><div class="proj-fund">MHRD Govt. of India &amp; IIT Bombay · File No: IIT B/Lab Migration/13.6.2012</div></div>
+    <div class="proj-card"><div class="proj-yr">2012 · Completed · ₹10,000</div><div class="proj-title">Lab Migration Project: Digital Signal Processing Using Scilab</div><div class="proj-fund">MHRD Govt. of India &amp; IIT Bombay · File No: Lab Migration Project/IIT B/13.6.2012</div></div>
+    <div class="proj-card"><div class="proj-yr">2023 · Completed</div><div class="proj-title">Lab Migration Project</div><div class="proj-fund">MOE, Govt of India &amp; IIT Bombay</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ GATE + MEMBERSHIP ════════════════════ -->
+<section id="gate">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">14</span><h2 class="sh-t">Competitive Exam &amp; Membership</h2><div class="sh-line"></div></div>
+  <div class="gate-card fu">
+    <div class="gate-n">924</div>
+    <div>
+      <div class="gate-lbl">GATE Score · 2001</div>
+      <div class="gate-title">Graduate Aptitude Test in Engineering (GATE)</div>
+      <div class="gate-sub">MHRD, Govt. of India · Score: 924 · Year: 2001</div>
+    </div>
+  </div>
+  <div class="mem-row fu" style="margin-top:1.25rem">
+    <div class="mem-card"><div class="mem-ico">🏛</div><div><div class="mem-org">The Institution of Engineers (India)</div><div class="mem-type">Associate Member</div><div class="mem-since">Since: 01 Jan 2005</div></div></div>
+    <div class="mem-card"><div class="mem-ico">🎓</div><div><div class="mem-org">The Indian Society of Technical Education (ISTE)</div><div class="mem-type">Life Member</div><div class="mem-since">Since: 01 Dec 2004</div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ AWARDS ════════════════════ -->
+<section id="awards">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">15</span><h2 class="sh-t">Awards &amp; Honours</h2><div class="sh-line"></div><span class="sh-count">Total: 5</span></div>
+  <div class="awards-grid fu">
+    <div class="award-card">
+      <div class="aw-ico">🏆</div>
+      <div class="aw-title">Best Engineer — Academics, Division of Electronics and Telecommunication Engineering</div>
+      <div class="aw-org">Institution of Engineers India, Erode Chapter · Engineers Day Celebration · District</div>
+      <div class="aw-yr">21 Sep 2024</div>
+    </div>
+    <div class="award-card">
+      <div class="aw-ico">📄</div>
+      <div class="aw-title">Best Paper Award — IEI All India Seminar on "Digital Transformation in Healthcare"</div>
+      <div class="aw-org">Institution of Engineers India · Thiagarajar Polytechnic College, Salem · National</div>
+      <div class="aw-yr">30 Nov 2024</div>
+    </div>
+    <div class="award-card">
+      <div class="aw-ico">📄</div>
+      <div class="aw-title">Best Paper Award — IEI All India Seminar on "Digital Transformation in Healthcare"</div>
+      <div class="aw-org">Institution of Engineers India · Thiagarajar Polytechnic College, Salem · National</div>
+      <div class="aw-yr">29 Nov 2024</div>
+    </div>
+    <div class="award-card">
+      <div class="aw-ico">🥇</div>
+      <div class="aw-title">Best Paper Award — National Web Conference on Challenges and Innovation in Engineering &amp; Technology 2021</div>
+      <div class="aw-org">Ramco Institute of Technology, Rajapalayam · National</div>
+      <div class="aw-yr">19 Mar 2021</div>
+    </div>
+    <div class="award-card">
+      <div class="aw-ico">✉️</div>
+      <div class="aw-title">Appreciation Letter from IRT — Text Book Publication</div>
+      <div class="aw-org">Institute of Road Transport Taramani · Intra-College</div>
+      <div class="aw-yr">24 Jun 2011</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════ CONTACT ════════════════════ -->
+<section id="contact">
+<div class="wrap">
+  <div class="sh fu"><span class="sh-n">16</span><h2 class="sh-t">Contact</h2><div class="sh-line"></div></div>
+  <div class="contact-grid fu">
+    <div class="ct-card"><div class="ct-ico">✉</div><div><div class="ct-lbl">Email</div><div class="ct-val">rsenthil_1976@yahoo.com</div></div></div>
+    <div class="ct-card"><div class="ct-ico">☎</div><div><div class="ct-lbl">Phone</div><div class="ct-val">+91 99408 82605</div></div></div>
+    <div class="ct-card"><div class="ct-ico">📍</div><div><div class="ct-lbl">Location</div><div class="ct-val">Chittode, Erode, Tamil Nadu</div></div></div>
+    <div class="ct-card"><div class="ct-ico">🏛</div><div><div class="ct-lbl">Institution</div><div class="ct-val">GCE Erode (Formerly IRTT)</div></div></div>
+    <div class="ct-card"><div class="ct-ico">🆔</div><div><div class="ct-lbl">Employee ID</div><div class="ct-val">27082021269</div></div></div>
+  </div>
+  <p style="margin-top:1.1rem;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--t4)" class="fu">System generated profile · TNEDU-ERP · 23-03-2026 · Copyright © 2026 DoTE Government of Tamil Nadu</p>
+</div>
+</section>
+
+</main>
+
+<footer>
+  <p>Dr. <strong>Senthilkumar R</strong> · Assistant Professor, ECE · Government College of Engineering Erode</p>
+</footer>
+
+<script>
+// Fade-up on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('vis'), i * 50);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.04, rootMargin: '0px 0px -24px 0px' });
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+// TOC active pip
+const secs = document.querySelectorAll('section[id]');
+const pips = document.querySelectorAll('.toc-pip');
+const tocObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      pips.forEach(p => p.classList.toggle('on', p.dataset.t === id));
+    }
+  });
+}, { threshold: 0.35 });
+secs.forEach(s => tocObs.observe(s));
+pips.forEach(p => p.addEventListener('click', () => {
+  document.getElementById(p.dataset.t)?.scrollIntoView({ behavior: 'smooth' });
+}));
+</script>
+</body>
+</html>
